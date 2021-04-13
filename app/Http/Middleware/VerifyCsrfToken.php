@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        //所有頁面忽略csrf token
+        '*'
     ];
 }
