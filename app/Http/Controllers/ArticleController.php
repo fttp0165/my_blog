@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Article;
+use App\Models\User;
 
 class ArticleController extends Controller
 {
@@ -14,7 +16,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view("articles.index");
+        $articles=Article::all();
+
+        return view("articles.index",['articles'=>$articles]);
     }
 
     /**
@@ -37,14 +41,14 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        $user=auth()->user();
         $form=$request->all();
-        DB::table("articles")->insert(['id'=>$form['id'],
-                                       'title'=>$form['title'],
-                                       'author_id'=>$form['author_id'],
-                                       'created_at'=>now(),
-                                       'updated_at'=>now()]);
-    }
-
+        Article::create([
+                         'title'=>$form['title'],
+                         'content'=>$form['content'],
+                         'created_at'=>now(),
+                         'updated_at'=>now()]); 
+        }
     /**
      * Display the specified resource.
      *
@@ -65,7 +69,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
-    
+    }
     /**
      * Update the specified resource in storage.
      *
