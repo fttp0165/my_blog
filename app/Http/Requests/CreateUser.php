@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreteUser extends APIRequest
+class CreateUser extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,9 @@ class CreteUser extends APIRequest
     {
         return [
             //
-            'name'=>'request|string',
-            'email'=>'request|string|email|unique:users',
-            'password'=>'request|string|email|cinfirmed'
+            'name'=>'required|string',
+            'email'=>'required|string|email|unique:users',
+            'password'=>'required|string|confirmed'
         ];
     }
 }
