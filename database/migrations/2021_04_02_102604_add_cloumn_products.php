@@ -15,7 +15,7 @@ class AddCloumnProducts extends Migration
     {
         //
      Schema::table('articles', function (Blueprint $table) {
-            $table->string('author_id');
+            $table->string('user_id')->constrained('users');
         });
     }
 
@@ -27,6 +27,10 @@ class AddCloumnProducts extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('articles');
+
+        Schema::table('articles', function (Blueprint $table) {
+            //
+            $table->dropConstrainedForeignId('user_id');
+        });
     }
 }
