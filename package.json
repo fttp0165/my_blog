@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.0.0-beta3",
-        "cross-env": "^7.0.3"
+        "cross-env": "^7.0.3",
+        "tinymce": "^5.7.1"
     }
 }

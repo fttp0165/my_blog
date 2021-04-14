@@ -10,6 +10,9 @@ class AuthController extends Controller
 {
     //
 
+    public function index(){
+        return view("auth.index");
+    }
     public function signup(CreateUser $request){
 
         $validatedData=$request->validated();
@@ -26,7 +29,7 @@ class AuthController extends Controller
     }
 
     public function login(Request $request){
-        $validatedData=$request->validated([
+        $validatedData=$request->validate([
             'email'=>'required|string|email',
             'password'=>'required|string'
         ]);
@@ -36,10 +39,20 @@ class AuthController extends Controller
         }
 
         $user =$request->user();
-
         $tokenRequest =$user ->createToken('Token');
         $tokenRequest->token->save();
 
-        return response(['token'=>$tokenRequest->accessToken]);
+        // return response(['token'=>$tokenRequest->accessToken]);
+        return redirect('/');
+    }
+
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response(['message'=>"登出"]);
+    }
+
+    public function user(Request $request)
+    {
+        return response($request->user());
     }
 }
